@@ -1,5 +1,5 @@
-import { Input, LargeButton, SpanError } from "@/components";
-import { inter, knewave } from "@/fonts";
+import { Input, LargeButton, SpanError, Title } from "@/components";
+import { inter } from "@/fonts";
 import { useAuth } from "@/hooks/useAuth";
 import { LoginData } from "@/interfaces/login.interface";
 import { loginSchema } from "@/schemas";
@@ -29,9 +29,7 @@ const Login: NextPage = () => {
       <main
         className={`${inter.className} flex flex-col w-[90vw] m-auto min-h-screen gap-4 items-center justify-center lg:w-full`}
       >
-        <h1 className={`${knewave.className} text-center text-pink100 mt-8`}>
-          Tech Hub
-        </h1>
+        <Title />
         <form
           className="box-border flex flex-col gap-6 w-full max-w-xs bg-grey400 px-4 py-8 rounded-md mb-8"
           onSubmit={handleSubmit(login)}
@@ -62,11 +60,12 @@ const Login: NextPage = () => {
             }
           />
           <LargeButton type="submit">Entrar</LargeButton>
+          <div className="border-grey300 border-b-[1px]" />
           <span className="text-center font-semibold text-xs text-grey200">
             Ainda não possui uma conta?
           </span>
           <Link
-            className="text-white inline-flex items-center justify-center bg-grey200 font-medium text-base no-underline h-10 px-5 rounded-md border-none hover:bg-grey300 transition-colors"
+            className="text-white inline-flex items-center justify-center bg-grey200 font-medium text-sm no-underline h-10 px-5 rounded-md border-none hover:bg-grey300 transition-colors"
             href={"/register"}
           >
             Cadastre-se

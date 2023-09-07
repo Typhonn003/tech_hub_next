@@ -7,7 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export const LargeButton = ({ children, ...rest }: ButtonProps) => {
   return (
     <button
-      className="bg-pink100 text-white font-medium text-base h-10 px-5 rounded-md border-none transition-colors hover:bg-pink200 disabled:bg-pink50"
+      className="bg-pink100 text-white font-medium text-sm h-10 px-5 rounded-md border-none mt-auto transition-colors hover:bg-pink200 disabled:bg-pink50 disabled:cursor-not-allowed"
       {...rest}
     >
       {children}
