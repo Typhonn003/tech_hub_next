@@ -18,9 +18,11 @@ export const Select = ({
 }: SelectProps) => {
   return (
     <fieldset className="flex flex-col gap-2 relative">
-      <label className="text-xs font-normal" htmlFor={id}>{label}</label>
+      <label className="text-xs font-normal" htmlFor={id}>
+        {label}
+      </label>
       <select
-        className="box-border h-10 w-full bg-grey300 text-grey100 text-sm font-normal rounded-md border-2 border-grey300 px-4 outline-none placeholder:text-grey200 focus:border-grey100 cursor-not-allowed"
+        className="box-border h-10 w-full bg-grey300 text-grey100 text-sm font-normal rounded-md border-2 border-grey300 px-4 outline-none placeholder:text-grey200 focus:border-grey100 disabled:cursor-not-allowed"
         id={id}
         {...register}
         {...rest}
