@@ -16,7 +16,7 @@ import Head from "next/head";
 import { useForm } from "react-hook-form";
 
 const Register: NextPage = () => {
-  const { registerUser, registerLoading } = useAuth();
+  const { registerUser } = useAuth();
 
   const {
     register,
@@ -55,7 +55,6 @@ const Register: NextPage = () => {
                 id="name"
                 placeholder="Digite seu nome"
                 register={register("name")}
-                disabled={registerLoading}
                 error={
                   errors.name && <SpanError>{errors.name?.message}</SpanError>
                 }
@@ -66,7 +65,6 @@ const Register: NextPage = () => {
                 id="email"
                 placeholder="Digite seu email"
                 register={register("email")}
-                disabled={registerLoading}
                 error={
                   errors.email && <SpanError>{errors.email?.message}</SpanError>
                 }
@@ -77,7 +75,6 @@ const Register: NextPage = () => {
                 id="bio"
                 placeholder="Fale sobre você"
                 register={register("bio")}
-                disabled={registerLoading}
                 error={
                   errors.bio && <SpanError>{errors.bio?.message}</SpanError>
                 }
@@ -88,7 +85,6 @@ const Register: NextPage = () => {
                 id="contact"
                 placeholder="Opção de contato"
                 register={register("contact")}
-                disabled={registerLoading}
                 error={
                   errors.contact && (
                     <SpanError>{errors.contact?.message}</SpanError>
@@ -101,7 +97,6 @@ const Register: NextPage = () => {
                 label="Selecionar módulo"
                 id="course_module"
                 register={register("course_module")}
-                disabled={registerLoading}
                 error={
                   errors.course_module && (
                     <SpanError>{errors.course_module?.message}</SpanError>
@@ -121,7 +116,6 @@ const Register: NextPage = () => {
                 id="password"
                 placeholder="Digite sua senha"
                 register={register("password")}
-                disabled={registerLoading}
                 error={
                   errors.password && (
                     <SpanError>{errors.password?.message}</SpanError>
@@ -134,7 +128,6 @@ const Register: NextPage = () => {
                 id="confirm_password"
                 placeholder="Confirme sua senha"
                 register={register("confirm_password")}
-                disabled={registerLoading}
                 error={
                   errors.confirm_password?.message && (
                     <SpanError>{errors.confirm_password.message}</SpanError>
@@ -142,9 +135,7 @@ const Register: NextPage = () => {
                 }
               />
               <div className="border-grey300 border-b-[1px]" />
-              <LargeButton type="submit" disabled={registerLoading}>
-                {registerLoading ? "Cadastrando..." : "Cadastrar"}
-              </LargeButton>
+              <LargeButton type="submit">Cadastrar</LargeButton>
             </div>
           </div>
         </form>

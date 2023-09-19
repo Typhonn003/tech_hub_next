@@ -1,5 +1,6 @@
 import * as C from "@/components";
 import { inter } from "@/fonts";
+import { useAuth } from "@/hooks/useAuth";
 import { UserData } from "@/interfaces/user.interface";
 import { api } from "@/services/api";
 import { GetServerSideProps } from "next";
@@ -13,7 +14,8 @@ interface ContextInterface {
 }
 
 const Home = (ctx: ContextInterface) => {
-  console.log(ctx);
+  const { logout } = useAuth();
+
   return (
     <div className={`${inter.className} min-h-screen`}>
       <Head>
@@ -22,7 +24,7 @@ const Home = (ctx: ContextInterface) => {
       <header className="w-full flex justify-center border-b-[1px] border-grey300">
         <div className="w-[90vw] flex justify-between py-6 sm:max-w-4xl">
           <C.Title />
-          <C.LinkMedium href="/login">Sair</C.LinkMedium>
+          <C.SmallButton onClick={logout}>Sair</C.SmallButton>
         </div>
       </header>
       <main>
