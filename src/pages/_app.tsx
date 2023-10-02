@@ -1,4 +1,3 @@
-import { AuthProvider } from "@/context";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { ToastContainer } from "react-toastify";
@@ -18,9 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
         draggable
         theme="colored"
       />
-      <AuthProvider>
-        <Component {...pageProps} />
-      </AuthProvider>
+      <Component {...pageProps} />
     </>
   );
 }

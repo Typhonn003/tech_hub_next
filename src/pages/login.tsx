@@ -1,16 +1,35 @@
-import { Input, LargeButton, SpanError, Title } from "@/components";
+import * as C from "@/components";
+import Head from "next/head";
 import { inter } from "@/fonts";
-import { useAuth } from "@/hooks/useAuth";
 import { LoginData } from "@/interfaces/login.interface";
 import { loginSchema } from "@/schemas";
+import { api } from "@/services/axiosClient";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";
-import Head from "next/head";
-import Link from "next/link";
+import { useRouter } from "next/router";
+import { setCookie } from "nookies";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import Link from "next/link";
 
 const Login: NextPage = () => {
-  const { login } = useAuth();
+  const router = useRouter();
+
+  const login = async (loginData: LoginData) => {
+    try {
+      const {
+        data: { token },
+      } = await api.post("sessions", loginData);
+      setCookie(null, "tech-hub-token", token, {
+        maxAge: 60 * 30,
+        path: "/",
+      });
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+      toast.error("Usuário ou senha incorreto!");
+    }
+  };
 
   const {
     register,
@@ -29,13 +48,13 @@ const Login: NextPage = () => {
       <main
         className={`${inter.className} flex flex-col w-[90vw] m-auto min-h-screen gap-4 items-center justify-center lg:w-full`}
       >
-        <Title />
+        <C.Title />
         <form
           className="box-border flex flex-col gap-6 w-full max-w-xs bg-grey400 px-4 py-8 rounded-md mb-8"
           onSubmit={handleSubmit(login)}
         >
           <h2 className="text-center">Login</h2>
-          <Input
+          <C.Input
             label="Email"
             type="email"
             id="email"
@@ -43,11 +62,11 @@ const Login: NextPage = () => {
             register={register("email")}
             error={
               errors.email?.message && (
-                <SpanError>{errors.email.message}</SpanError>
+                <C.SpanError>{errors.email.message}</C.SpanError>
               )
             }
           />
-          <Input
+          <C.Input
             label="Senha"
             type="password"
             id="password"
@@ -55,11 +74,11 @@ const Login: NextPage = () => {
             register={register("password")}
             error={
               errors.password?.message && (
-                <SpanError>{errors.password.message}</SpanError>
+                <C.SpanError>{errors.password.message}</C.SpanError>
               )
             }
           />
-          <LargeButton type="submit">Entrar</LargeButton>
+          <C.LargeButton type="submit">Entrar</C.LargeButton>
           <div className="border-grey300 border-b-[1px]" />
           <span className="text-center font-semibold text-xs text-grey200">
             Ainda não possui uma conta?

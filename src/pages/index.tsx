@@ -1,16 +1,22 @@
 import * as C from "@/components";
 import Head from "next/head";
 import { inter } from "@/fonts";
-import { useAuth } from "@/hooks/useAuth";
 import { useFetch } from "@/hooks/useFetch";
 import { UserData } from "@/interfaces/user.interface";
-import { parseCookies } from "nookies";
+import { destroyCookie, parseCookies } from "nookies";
+import { NextPage } from "next";
+import { useRouter } from "next/router";
 
-const Home = () => {
+const Home: NextPage = () => {
+  const router = useRouter();
   const cookies = parseCookies();
   const token = cookies["tech-hub-token"];
   const { data, error, isLoading } = useFetch<UserData>("/profile", token);
-  const { logout } = useAuth();
+
+  const logout = () => {
+    destroyCookie(null, "tech-hub-token");
+    router.push("/login");
+  };
 
   if (isLoading) return <p>Carregando...</p>;
   if (!data) return <p>Não existem dados...</p>;

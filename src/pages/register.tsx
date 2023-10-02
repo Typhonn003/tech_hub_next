@@ -1,22 +1,28 @@
-import {
-  Input,
-  LargeButton,
-  LinkMedium,
-  Select,
-  SpanError,
-  Title,
-} from "@/components";
+import * as C from "@/components";
+import Head from "next/head";
 import { inter } from "@/fonts";
-import { useAuth } from "@/hooks/useAuth";
 import { RegisterData } from "@/interfaces/register.interface";
 import { registerSchema } from "@/schemas";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";
-import Head from "next/head";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import { api } from "@/services/axiosClient";
+import { toast } from "react-toastify";
 
 const Register: NextPage = () => {
-  const { registerUser } = useAuth();
+  const router = useRouter();
+
+  const registerUser = async (registerData: RegisterData) => {
+    try {
+      await api.post("users", registerData);
+      toast.success("Conta criada com sucesso!");
+      router.push("/login");
+    } catch (error) {
+      console.error(error);
+      toast.error("Email já cadastrado!");
+    }
+  };
 
   const {
     register,
@@ -35,8 +41,8 @@ const Register: NextPage = () => {
         <title>Tech Hub - Registro</title>
       </Head>
       <header className="w-full flex justify-between items-center max-w-xs mt-8 sm:max-w-4xl">
-        <Title />
-        <LinkMedium href={"/login"}>Voltar ao login</LinkMedium>
+        <C.Title />
+        <C.LinkMedium href={"/login"}>Voltar ao login</C.LinkMedium>
       </header>
       <main className="w-full h-full flex justify-center">
         <form
@@ -49,37 +55,41 @@ const Register: NextPage = () => {
           </span>
           <div className="flex flex-col gap-6 sm:flex-row transition-all">
             <div className="flex flex-col gap-6 sm:w-2/4">
-              <Input
+              <C.Input
                 label="Nome"
                 type="text"
                 id="name"
                 placeholder="Digite seu nome"
                 register={register("name")}
                 error={
-                  errors.name && <SpanError>{errors.name?.message}</SpanError>
+                  errors.name && (
+                    <C.SpanError>{errors.name?.message}</C.SpanError>
+                  )
                 }
               />
-              <Input
+              <C.Input
                 label="Email"
                 type="email"
                 id="email"
                 placeholder="Digite seu email"
                 register={register("email")}
                 error={
-                  errors.email && <SpanError>{errors.email?.message}</SpanError>
+                  errors.email && (
+                    <C.SpanError>{errors.email?.message}</C.SpanError>
+                  )
                 }
               />
-              <Input
+              <C.Input
                 label="Bio"
                 type="text"
                 id="bio"
                 placeholder="Fale sobre você"
                 register={register("bio")}
                 error={
-                  errors.bio && <SpanError>{errors.bio?.message}</SpanError>
+                  errors.bio && <C.SpanError>{errors.bio?.message}</C.SpanError>
                 }
               />
-              <Input
+              <C.Input
                 label="Contato"
                 type="text"
                 id="contact"
@@ -87,19 +97,19 @@ const Register: NextPage = () => {
                 register={register("contact")}
                 error={
                   errors.contact && (
-                    <SpanError>{errors.contact?.message}</SpanError>
+                    <C.SpanError>{errors.contact?.message}</C.SpanError>
                   )
                 }
               />
             </div>
             <div className="flex flex-col gap-6 sm:w-2/4">
-              <Select
+              <C.Select
                 label="Selecionar módulo"
                 id="course_module"
                 register={register("course_module")}
                 error={
                   errors.course_module && (
-                    <SpanError>{errors.course_module?.message}</SpanError>
+                    <C.SpanError>{errors.course_module?.message}</C.SpanError>
                   )
                 }
               >
@@ -109,8 +119,8 @@ const Register: NextPage = () => {
                 <option value="Quarto módulo">Quarto módulo</option>
                 <option value="Quinto módulo">Quinto módulo</option>
                 <option value="Sexto módulo">Sexto módulo</option>
-              </Select>
-              <Input
+              </C.Select>
+              <C.Input
                 label="Senha"
                 type="password"
                 id="password"
@@ -118,11 +128,11 @@ const Register: NextPage = () => {
                 register={register("password")}
                 error={
                   errors.password && (
-                    <SpanError>{errors.password?.message}</SpanError>
+                    <C.SpanError>{errors.password?.message}</C.SpanError>
                   )
                 }
               />
-              <Input
+              <C.Input
                 label="Confirmar senha"
                 type="password"
                 id="confirm_password"
@@ -130,12 +140,12 @@ const Register: NextPage = () => {
                 register={register("confirm_password")}
                 error={
                   errors.confirm_password?.message && (
-                    <SpanError>{errors.confirm_password.message}</SpanError>
+                    <C.SpanError>{errors.confirm_password.message}</C.SpanError>
                   )
                 }
               />
               <div className="border-grey300 border-b-[1px]" />
-              <LargeButton type="submit">Cadastrar</LargeButton>
+              <C.LargeButton type="submit">Cadastrar</C.LargeButton>
             </div>
           </div>
         </form>
