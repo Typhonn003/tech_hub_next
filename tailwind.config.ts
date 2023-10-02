@@ -21,6 +21,9 @@ const config: Config = {
         sucess100: "#3FE864",
         error100: "#E83F5B",
       },
+      screens: {
+        xs: "420px",
+      },
     },
   },
   plugins: [],

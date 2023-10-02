@@ -1,4 +1,4 @@
-import { FullTechData } from "./tech.interface";
+import { TechData } from "./tech.interface";
 import { WorkData } from "./work.interface";
 
 export interface UserData {
@@ -8,7 +8,7 @@ export interface UserData {
   course_module: string;
   bio: string;
   contact: string;
-  techs: FullTechData[];
+  techs: TechData[];
   works: WorkData[];
   created_at: string;
   updated_at: string;

@@ -7,7 +7,7 @@ export interface EditTechData {
   status: string;
 }
 
-export interface FullTechData {
+export interface TechData {
   id: string;
   title: string;
   status: string;

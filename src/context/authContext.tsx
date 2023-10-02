@@ -1,6 +1,6 @@
 import { LoginData } from "@/interfaces/login.interface";
 import { RegisterData } from "@/interfaces/register.interface";
-import { api } from "@/services/api";
+import { api } from "@/services/axiosClient";
 import { useRouter } from "next/router";
 import { setCookie, destroyCookie } from "nookies";
 import { ReactNode, createContext } from "react";
@@ -25,8 +25,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const login = async (loginData: LoginData) => {
     try {
-      const response = await api.post("sessions", loginData);
-      setCookie(null, "tech-hub-token", response.data.token, {
+      const {
+        data: { token },
+      } = await api.post("sessions", loginData);
+      setCookie(null, "tech-hub-token", token, {
         maxAge: 60 * 30,
         path: "/",
       });

@@ -5,7 +5,7 @@ import { Select } from "./select/Select";
 import { LinkMedium } from "./button/LinkMedium";
 import { Title } from "./title/Title";
 import { SmallButton } from "./button/SmallButton";
-SpanError;
+import { TechCard } from "./tech_card/TechCard";
 
 export {
   LargeButton,
@@ -15,4 +15,5 @@ export {
   LinkMedium,
   Title,
   SmallButton,
+  TechCard,
 };

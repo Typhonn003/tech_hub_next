@@ -1,20 +1,19 @@
 import * as C from "@/components";
+import Head from "next/head";
 import { inter } from "@/fonts";
 import { useAuth } from "@/hooks/useAuth";
+import { useFetch } from "@/hooks/useFetch";
 import { UserData } from "@/interfaces/user.interface";
-import { api } from "@/services/api";
-import { GetServerSideProps } from "next";
-import Head from "next/head";
-import nookies from "nookies";
+import { parseCookies } from "nookies";
 
-interface ContextInterface {
-  token: string;
-  data: UserData;
-  techs: string[];
-}
-
-const Home = (ctx: ContextInterface) => {
+const Home = () => {
+  const cookies = parseCookies();
+  const token = cookies["tech-hub-token"];
+  const { data, error, isLoading } = useFetch<UserData>("/profile", token);
   const { logout } = useAuth();
+
+  if (isLoading) return <p>Carregando...</p>;
+  if (!data) return <p>Não existem dados...</p>;
 
   return (
     <div className={`${inter.className} min-h-screen`}>
@@ -30,9 +29,9 @@ const Home = (ctx: ContextInterface) => {
       <main>
         <section className="w-full flex justify-center border-b-[1px] border-grey300">
           <div className="w-[90vw] flex flex-col gap-2 py-6 sm:flex-row sm:justify-between sm:items-center sm:max-w-4xl">
-            <h2 className="font-bold text-2xl">Olá, {ctx.data.name}!</h2>
+            <h2 className="font-bold text-2xl">Olá, {data.name}!</h2>
             <span className="font-bold text-sm text-grey200">
-              {ctx.data.course_module}
+              {data.course_module}
             </span>
           </div>
         </section>
@@ -41,8 +40,16 @@ const Home = (ctx: ContextInterface) => {
             <h2 className="font-bold text-2xl">Tecnologias</h2>
             <C.SmallButton type="button">Adicionar</C.SmallButton>
           </div>
-          {ctx.techs.length > 0 ? (
-            <ul className="w-full h-14 bg-grey400 rounded-md"></ul>
+          {data.techs.length > 0 ? (
+            <ul className="w-full bg-grey400 flex flex-col gap-4 rounded-md p-5">
+              {data.techs.map((tech) => (
+                <C.TechCard
+                  key={tech.id}
+                  title={tech.title}
+                  status={tech.status}
+                />
+              ))}
+            </ul>
           ) : (
             <div className="box-border w-full bg-grey400 rounded-md px-4 py-7">
               <p className="font-medium text-xl text-center sm:text-xl">
@@ -55,31 +62,6 @@ const Home = (ctx: ContextInterface) => {
       </main>
     </div>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const cookies = nookies.get(ctx);
-  const token = cookies["tech-hub-token"];
-
-  if (!token) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-
-  api.defaults.headers.common.Authorization = `Bearer ${token}`;
-
-  const {
-    data,
-    data: { techs },
-  } = await api.get("profile");
-
-  return {
-    props: { token, data, techs },
-  };
 };
 
 export default Home;
