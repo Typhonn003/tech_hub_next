@@ -79,7 +79,7 @@ const Login: NextPage = () => {
             }
           />
           <C.LargeButton type="submit">Entrar</C.LargeButton>
-          <div className="border-grey300 border-b-[1px]" />
+          <C.Separator />
           <span className="text-center font-semibold text-xs text-grey200">
             Ainda não possui uma conta?
           </span>

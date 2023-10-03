@@ -6,12 +6,17 @@ import { UserData } from "@/interfaces/user.interface";
 import { destroyCookie, parseCookies } from "nookies";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
+import { useAddModalStore } from "@/store";
 
 const Home: NextPage = () => {
   const router = useRouter();
   const cookies = parseCookies();
   const token = cookies["tech-hub-token"];
-  const { data, error, isLoading } = useFetch<UserData>("/profile", token);
+  const { data, error, isLoading, mutate } = useFetch<UserData>(
+    "/profile",
+    token
+  );
+  const { addModalStatus, toggleAddModalStatus } = useAddModalStore();
 
   const logout = () => {
     destroyCookie(null, "tech-hub-token");
@@ -44,7 +49,9 @@ const Home: NextPage = () => {
         <section className="w-[90vw] flex flex-col gap-6 m-auto pt-6 sm:max-w-4xl">
           <div className="flex justify-between">
             <h2 className="font-bold text-2xl">Tecnologias</h2>
-            <C.SmallButton type="button">Adicionar</C.SmallButton>
+            <C.SmallButton type="button" onClick={toggleAddModalStatus}>
+              Adicionar
+            </C.SmallButton>
           </div>
           {data.techs.length > 0 ? (
             <ul className="w-full bg-grey400 flex flex-col gap-4 rounded-md p-5">
@@ -66,6 +73,7 @@ const Home: NextPage = () => {
           )}
         </section>
       </main>
+      {addModalStatus ? <C.AddTechModal mutate={mutate} data={data} /> : null}
     </div>
   );
 };

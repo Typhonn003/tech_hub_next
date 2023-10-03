@@ -144,7 +144,7 @@ const Register: NextPage = () => {
                   )
                 }
               />
-              <div className="border-grey300 border-b-[1px]" />
+              <C.Separator />
               <C.LargeButton type="submit">Cadastrar</C.LargeButton>
             </div>
           </div>

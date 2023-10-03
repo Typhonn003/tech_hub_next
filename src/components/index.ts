@@ -6,6 +6,8 @@ import { LinkMedium } from "./button/LinkMedium";
 import { Title } from "./title/Title";
 import { SmallButton } from "./button/SmallButton";
 import { TechCard } from "./tech_card/TechCard";
+import { AddTechModal } from "./modal/AddTechModal";
+import { Separator } from "./separator/Separator";
 
 export {
   LargeButton,
@@ -16,4 +18,6 @@ export {
   Title,
   SmallButton,
   TechCard,
+  AddTechModal,
+  Separator,
 };
