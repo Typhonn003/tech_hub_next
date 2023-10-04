@@ -6,7 +6,7 @@ import { UserData } from "@/interfaces/user.interface";
 import { destroyCookie, parseCookies } from "nookies";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useAddModalStore } from "@/store";
+import { useModalStateStore } from "@/store";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -16,7 +16,8 @@ const Home: NextPage = () => {
     "/profile",
     token
   );
-  const { addModalStatus, toggleAddModalStatus } = useAddModalStore();
+  const { addModalStatus, toggleAddModalStatus, editModalStatus } =
+    useModalStateStore();
 
   const logout = () => {
     destroyCookie(null, "tech-hub-token");
@@ -54,13 +55,9 @@ const Home: NextPage = () => {
             </C.SmallButton>
           </div>
           {data.techs.length > 0 ? (
-            <ul className="w-full bg-grey400 flex flex-col gap-4 rounded-md p-5">
+            <ul className="w-full bg-grey400 grid gap-4 rounded-md p-5 max-h-96 overflow-hidden overflow-y-auto sm:grid-cols-2">
               {data.techs.map((tech) => (
-                <C.TechCard
-                  key={tech.id}
-                  title={tech.title}
-                  status={tech.status}
-                />
+                <C.TechCard key={tech.id} tech={tech} />
               ))}
             </ul>
           ) : (
@@ -74,6 +71,7 @@ const Home: NextPage = () => {
         </section>
       </main>
       {addModalStatus ? <C.AddTechModal mutate={mutate} data={data} /> : null}
+      {editModalStatus ? <C.EditTechModal mutate={mutate} data={data} /> : null}
     </div>
   );
 };

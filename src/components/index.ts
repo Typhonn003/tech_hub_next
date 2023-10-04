@@ -8,6 +8,7 @@ import { SmallButton } from "./button/SmallButton";
 import { TechCard } from "./tech_card/TechCard";
 import { AddTechModal } from "./modal/AddTechModal";
 import { Separator } from "./separator/Separator";
+import { EditTechModal } from "./modal/EditTechModal";
 
 export {
   LargeButton,
@@ -20,4 +21,5 @@ export {
   TechCard,
   AddTechModal,
   Separator,
+  EditTechModal,
 };

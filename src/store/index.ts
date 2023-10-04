@@ -1,3 +1,4 @@
-import { useAddModalStore } from "./ModalState";
+import { useModalStateStore } from "./modalStateStore";
+import { useSelectedTechStore } from "./selectedTechStore";
 
-export { useAddModalStore };
+export { useModalStateStore, useSelectedTechStore };

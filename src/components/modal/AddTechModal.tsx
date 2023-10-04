@@ -9,7 +9,8 @@ import { NewTechData } from "@/interfaces/tech.interface";
 import { api } from "@/services/axiosClient";
 import { toast } from "react-toastify";
 import { UserData } from "@/interfaces/user.interface";
-import { useAddModalStore } from "@/store";
+import { useModalStateStore } from "@/store";
+import { useEffect } from "react";
 
 interface AddTechModalProps {
   data: UserData;
@@ -17,7 +18,7 @@ interface AddTechModalProps {
 }
 
 export const AddTechModal = ({ data, mutate }: AddTechModalProps) => {
-  const { toggleAddModalStatus } = useAddModalStore();
+  const { toggleAddModalStatus, addModalStatus } = useModalStateStore();
 
   const addNewTech = async (techData: NewTechData) => {
     try {
@@ -42,6 +43,20 @@ export const AddTechModal = ({ data, mutate }: AddTechModalProps) => {
     resolver: zodResolver(newTechSchema),
     mode: "onChange",
   });
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && addModalStatus) {
+        toggleAddModalStatus();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [addModalStatus, toggleAddModalStatus]);
 
   return (
     <Wrapper>

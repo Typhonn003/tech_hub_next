@@ -20,6 +20,8 @@ const config: Config = {
         toastify: "#343B41",
         sucess100: "#3FE864",
         error100: "#E83F5B",
+        delete50: "#E73E33",
+        delete100: "#B91D2D",
       },
       screens: {
         xs: "420px",

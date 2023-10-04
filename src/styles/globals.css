@@ -18,4 +18,16 @@
   h3 {
     @apply font-medium text-sm;
   }
+
+  ::-webkit-scrollbar {
+    @apply w-2
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-grey200/50 rounded-tr-md rounded-br-md
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-grey300 rounded-md
+  }
 }
