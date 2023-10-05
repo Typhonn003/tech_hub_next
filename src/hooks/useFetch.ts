@@ -9,7 +9,11 @@ export const useFetch = <Data = any>(url: string, token: string) => {
     return response.data;
   };
 
-  const { data, error, isLoading, mutate } = useSWR<Data>([url, token], () => fetcher([url, token]));
+  const { data, error, isLoading, mutate } = useSWR<Data>(
+    [url, token],
+    () => fetcher([url, token]),
+    { revalidateOnFocus: false }
+  );
 
   return { data, error, isLoading, mutate };
 };

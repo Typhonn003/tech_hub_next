@@ -7,6 +7,7 @@ import { destroyCookie, parseCookies } from "nookies";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useModalStateStore } from "@/store";
+import dynamic from "next/dynamic";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -37,6 +38,18 @@ const Home: NextPage = () => {
     if (18 <= hour && hour < 24) return "Boa noite";
     else return "Boa madrugada";
   };
+
+  const DynamicAddModal = dynamic(() =>
+    import("../components/index").then((mod) => mod.AddTechModal)
+  );
+
+  const DynamicEditModal = dynamic(() =>
+    import("../components/index").then((mod) => mod.EditTechModal)
+  );
+
+  const DynamicTechCard = dynamic(() =>
+    import("../components/index").then((mod) => mod.TechCard)
+  );
 
   return (
     <div className={`${inter.className} min-h-screen`}>
@@ -70,7 +83,7 @@ const Home: NextPage = () => {
           {data.techs.length > 0 ? (
             <ul className="w-full bg-grey400 grid gap-4 rounded-md p-5 max-h-96 overflow-hidden overflow-y-auto sm:grid-cols-2">
               {data.techs.map((tech) => (
-                <C.TechCard key={tech.id} tech={tech} />
+                <DynamicTechCard key={tech.id} tech={tech} />
               ))}
             </ul>
           ) : (
@@ -83,8 +96,10 @@ const Home: NextPage = () => {
           )}
         </section>
       </main>
-      {addModalStatus ? <C.AddTechModal mutate={mutate} data={data} /> : null}
-      {editModalStatus ? <C.EditTechModal mutate={mutate} data={data} /> : null}
+      {addModalStatus ? <DynamicAddModal mutate={mutate} data={data} /> : null}
+      {editModalStatus ? (
+        <DynamicEditModal mutate={mutate} data={data} />
+      ) : null}
     </div>
   );
 };

@@ -19,7 +19,7 @@ export const TechCard = ({ tech }: TechCardProps) => {
       <div className="flex gap-2">
         <span>{status}</span>
         <button
-          aria-label="Edit tech button"
+          aria-label="Botão para editar a tecnologia"
           onClick={() => {
             setTech(tech);
             toggleEditModalStatus();
