@@ -6,7 +6,7 @@ import { UserData } from "@/interfaces/user.interface";
 import { useModalStateStore, useSelectedTechStore } from "@/store";
 import { api } from "@/services/axiosClient";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { EditTechData } from "@/interfaces/tech.interface";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,6 +20,7 @@ interface EditTechModalProps {
 export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
   const { toggleEditModalStatus, editModalStatus } = useModalStateStore();
   const { tech } = useSelectedTechStore();
+  const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
 
   const editTech = async (techData: EditTechData) => {
     try {
@@ -62,13 +63,19 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
     }
   };
 
-  function formatDate(date: string) {
+  const formatDate = (date: string) => {
     const newDate = new Date(date);
     const day = newDate.getDate().toString().padStart(2, "0");
     const month = (newDate.getMonth() + 1).toString().padStart(2, "0");
     const year = newDate.getFullYear();
     return day + "/" + month + "/" + year;
-  }
+  };
+
+  const handleDeleteClick = () => {
+    setConfirmDelete(true);
+
+    setTimeout(() => setConfirmDelete(false), 3000);
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -125,9 +132,9 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
           <button
             className="bg-delete50 text-white font-medium text-sm h-10 px-5 rounded-md border-none mt-auto transition-colors hover:bg-delete100"
             type="button"
-            onClick={deleteTech}
+            onClick={() => (confirmDelete ? deleteTech() : handleDeleteClick())}
           >
-            Excluir
+            {confirmDelete ? "Confirmar exclusão" : "Excluir"}
           </button>
         </div>
       </Form>
