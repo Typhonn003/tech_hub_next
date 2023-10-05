@@ -1,118 +1,107 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import * as C from "@/components";
+import Head from "next/head";
+import { inter } from "@/fonts";
+import { useFetch } from "@/hooks/useFetch";
+import { UserData } from "@/interfaces/user.interface";
+import { destroyCookie, parseCookies } from "nookies";
+import { NextPage } from "next";
+import { useRouter } from "next/router";
+import { useModalStateStore } from "@/store";
+import dynamic from "next/dynamic";
 
-const inter = Inter({ subsets: ['latin'] })
+const Home: NextPage = () => {
+  const router = useRouter();
+  const cookies = parseCookies();
+  const token = cookies["tech-hub-token"];
+  const { data, isLoading, mutate } = useFetch<UserData>("/profile", token);
+  const { addModalStatus, toggleAddModalStatus, editModalStatus } =
+    useModalStateStore();
 
-export default function Home() {
+  const logout = () => {
+    destroyCookie(null, "tech-hub-token");
+    router.push("/login");
+  };
+
+  if (isLoading) return <C.LoadingScreen />;
+
+  if (!data) {
+    router.push("/login");
+    return;
+  }
+
+  const timeMessage = () => {
+    const time = new Date();
+    const hour = time.getHours();
+
+    if (6 <= hour && hour < 12) return "Bom dia";
+    if (12 <= hour && hour < 18) return "Boa tarde";
+    if (18 <= hour && hour < 24) return "Boa noite";
+    else return "Boa madrugada";
+  };
+
+  const DynamicAddModal = dynamic(() =>
+    import("../components/index").then((mod) => mod.AddTechModal)
+  );
+
+  const DynamicEditModal = dynamic(() =>
+    import("../components/index").then((mod) => mod.EditTechModal)
+  );
+
+  const DynamicTechCard = dynamic(() =>
+    import("../components/index").then((mod) => mod.TechCard)
+  );
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className={`${inter.className} min-h-screen`}>
+      <Head>
+        <title>Tech Hub</title>
+      </Head>
+      <header className="w-full flex justify-center border-b-[1px] border-grey300">
+        <div className="w-[90vw] flex justify-between py-6 sm:max-w-4xl">
+          <C.Title />
+          <C.SmallButton onClick={logout}>Sair</C.SmallButton>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
+      </header>
+      <main>
+        <section className="w-full flex justify-center border-b-[1px] border-grey300">
+          <div className="w-[90vw] flex flex-col gap-2 py-6 sm:flex-row sm:justify-between sm:items-center sm:max-w-4xl">
+            <h2 className="font-bold text-2xl">
+              {timeMessage()}, {data.name}!
+            </h2>
+            <span className="font-bold text-sm text-grey200">
+              {data.course_module}
             </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+          </div>
+        </section>
+        <section className="w-[90vw] flex flex-col gap-6 m-auto pt-6 sm:max-w-4xl">
+          <div className="flex justify-between">
+            <h2 className="font-bold text-2xl">Tecnologias</h2>
+            <C.SmallButton type="button" onClick={toggleAddModalStatus}>
+              Adicionar
+            </C.SmallButton>
+          </div>
+          {data.techs.length > 0 ? (
+            <ul className="w-full bg-grey400 grid gap-4 rounded-md p-5 max-h-96 overflow-hidden overflow-y-auto sm:grid-cols-2">
+              {data.techs.map((tech) => (
+                <DynamicTechCard key={tech.id} tech={tech} />
+              ))}
+            </ul>
+          ) : (
+            <div className="box-border w-full bg-grey400 rounded-md px-4 py-7">
+              <p className="font-medium text-xl text-center sm:text-xl">
+                Você ainda não tem nenhuma tecnologia cadastrada{" "}
+                <span className="text-pink100">=(</span>
+              </p>
+            </div>
+          )}
+        </section>
+      </main>
+      {addModalStatus ? <DynamicAddModal mutate={mutate} data={data} /> : null}
+      {editModalStatus ? (
+        <DynamicEditModal mutate={mutate} data={data} />
+      ) : null}
+    </div>
+  );
+};
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+export default Home;
