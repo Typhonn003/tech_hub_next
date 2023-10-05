@@ -9,6 +9,8 @@ import { TechCard } from "./tech_card/TechCard";
 import { AddTechModal } from "./modal/AddTechModal";
 import { Separator } from "./separator/Separator";
 import { EditTechModal } from "./modal/EditTechModal";
+import { LoadingScreen } from "./loading/LoadingScreen";
+import { RoundedButton } from "./button/RoundedButton";
 
 export {
   LargeButton,
@@ -22,4 +24,6 @@ export {
   AddTechModal,
   Separator,
   EditTechModal,
+  LoadingScreen,
+  RoundedButton,
 };

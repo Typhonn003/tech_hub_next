@@ -12,10 +12,7 @@ const Home: NextPage = () => {
   const router = useRouter();
   const cookies = parseCookies();
   const token = cookies["tech-hub-token"];
-  const { data, error, isLoading, mutate } = useFetch<UserData>(
-    "/profile",
-    token
-  );
+  const { data, isLoading, mutate } = useFetch<UserData>("/profile", token);
   const { addModalStatus, toggleAddModalStatus, editModalStatus } =
     useModalStateStore();
 
@@ -24,8 +21,22 @@ const Home: NextPage = () => {
     router.push("/login");
   };
 
-  if (isLoading) return <p>Carregando...</p>;
-  if (!data) return <p>Não existem dados...</p>;
+  if (isLoading) return <C.LoadingScreen />;
+
+  if (!data) {
+    router.push("/login");
+    return;
+  }
+
+  const timeMessage = () => {
+    const time = new Date();
+    const hour = time.getHours();
+
+    if (6 <= hour && hour < 12) return "Bom dia";
+    if (12 <= hour && hour < 18) return "Boa tarde";
+    if (18 <= hour && hour < 24) return "Boa noite";
+    else return "Boa madrugada";
+  };
 
   return (
     <div className={`${inter.className} min-h-screen`}>
@@ -41,7 +52,9 @@ const Home: NextPage = () => {
       <main>
         <section className="w-full flex justify-center border-b-[1px] border-grey300">
           <div className="w-[90vw] flex flex-col gap-2 py-6 sm:flex-row sm:justify-between sm:items-center sm:max-w-4xl">
-            <h2 className="font-bold text-2xl">Olá, {data.name}!</h2>
+            <h2 className="font-bold text-2xl">
+              {timeMessage()}, {data.name}!
+            </h2>
             <span className="font-bold text-sm text-grey200">
               {data.course_module}
             </span>

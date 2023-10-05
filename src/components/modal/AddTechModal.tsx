@@ -63,13 +63,9 @@ export const AddTechModal = ({ data, mutate }: AddTechModalProps) => {
       <Form onSubmit={handleSubmit(addNewTech)}>
         <div className="flex justify-between items-center">
           <h2 className="title2">Cadastrar Tecnologia</h2>
-          <button
-            type="button"
-            className="h-8 w-8 rounded-full flex items-center justify-center bg-grey400 hover:bg-grey300"
-            onClick={toggleAddModalStatus}
-          >
+          <C.RoundedButton type="button" onClick={toggleAddModalStatus}>
             <CgClose />
-          </button>
+          </C.RoundedButton>
         </div>
         <C.Input
           label="Nome"

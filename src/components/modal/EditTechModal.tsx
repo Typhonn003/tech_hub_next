@@ -89,13 +89,9 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
       <Form onSubmit={handleSubmit(editTech)}>
         <div className="flex justify-between items-center">
           <h2 className="title2">Detalhes da tecnologia</h2>
-          <button
-            type="button"
-            className="h-8 w-8 rounded-full flex items-center justify-center bg-grey400 hover:bg-grey300"
-            onClick={toggleEditModalStatus}
-          >
+          <C.RoundedButton type="button" onClick={toggleEditModalStatus}>
             <CgClose />
-          </button>
+          </C.RoundedButton>
         </div>
         <C.Input
           label="Nome"
@@ -124,7 +120,7 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
           Criado em: {formatDate(tech!.created_at)}
         </span>
         <C.Separator />
-        <div className="flex justify-between gap-1">
+        <div className="flex flex-col gap-2 xs:flex-row xs:justify-between">
           <C.LargeButton type="submit">Salvar alterações</C.LargeButton>
           <button
             className="bg-delete50 text-white font-medium text-sm h-10 px-5 rounded-md border-none mt-auto transition-colors hover:bg-delete100"
