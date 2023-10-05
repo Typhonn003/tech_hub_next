@@ -12,12 +12,12 @@ export const TechCard = ({ tech }: TechCardProps) => {
   const { setTech } = useSelectedTechStore();
 
   return (
-    <li className="box-border w-full flex justify-between items-center bg-grey500 px-6 py-3 rounded-md transition-colors hover:bg-grey300">
-      <h2 className="font-semibold text-base max-w-[6ch] overflow-hidden text-ellipsis whitespace-nowrap xs:max-w-full sm:max-w-[8ch] xl:max-w-full">
-        {title}
+    <li className="box-border w-full flex flex-col justify-between items-center bg-grey500 px-6 py-3 rounded-md transition-colors hover:bg-grey300">
+      <h2 className="font-semibold text-base overflow-hidden text-ellipsis whitespace-nowrap xs:max-w-full">
+        Tecnologia: {title}
       </h2>
       <div className="flex gap-2">
-        <span>{status}</span>
+        <span className="text-grey200">Status: {status}</span>
         <button
           aria-label="Botão para editar a tecnologia"
           onClick={() => {
