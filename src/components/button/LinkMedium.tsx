@@ -9,7 +9,7 @@ interface LinkProps {
 export const LinkMedium = ({ href, children }: LinkProps) => {
   return (
     <Link
-      className="text-white inline-flex items-center justify-center bg-grey400 font-medium text-sm no-underline h-8 px-5 rounded-md border-none hover:bg-grey300 transition-colors"
+      className="inline-flex h-8 items-center justify-center rounded-md border border-primary-violet6 bg-primary-violet3 px-5 text-sm font-medium no-underline transition-colors hover:bg-primary-violet4"
       href={href}
     >
       {children}

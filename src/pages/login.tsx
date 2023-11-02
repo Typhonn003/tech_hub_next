@@ -46,11 +46,11 @@ const Login: NextPage = () => {
         <title>Tech Hub - Login</title>
       </Head>
       <main
-        className={`${inter.className} flex flex-col w-[90vw] m-auto min-h-screen gap-4 items-center justify-center lg:w-full`}
+        className={`${inter.className} m-auto flex min-h-screen w-[90vw] flex-col items-center justify-center gap-4 lg:w-full`}
       >
         <C.Title />
         <form
-          className="box-border flex flex-col gap-6 w-full max-w-xs bg-grey400 px-4 py-8 rounded-md mb-8"
+          className="mb-8 box-border flex w-full max-w-xs flex-col gap-6 rounded-md border border-primary-violet6 bg-gradient-to-br from-primary-violet2 to-primary-violet3 px-4 py-8"
           onSubmit={handleSubmit(login)}
         >
           <h2 className="text-center">Login</h2>
@@ -80,11 +80,11 @@ const Login: NextPage = () => {
           />
           <C.LargeButton type="submit">Entrar</C.LargeButton>
           <C.Separator />
-          <span className="text-center font-semibold text-xs text-grey200">
+          <span className="text-center text-xs font-semibold">
             Ainda não possui uma conta?
           </span>
           <Link
-            className="text-white inline-flex items-center justify-center bg-grey200 font-medium text-sm no-underline h-10 px-5 rounded-md border-none hover:bg-grey300 transition-colors"
+            className="inline-flex h-10 items-center justify-center rounded-md border border-primary-violet6 bg-primary-violet3 px-5 text-sm font-medium text-white no-underline transition-colors hover:border-primary-violet7 hover:bg-primary-violet4"
             href={"/register"}
           >
             Cadastre-se

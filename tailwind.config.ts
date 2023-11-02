@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { violetDark, crimsonDark } from "@radix-ui/colors";
 
 const config: Config = {
   content: [
@@ -22,6 +23,12 @@ const config: Config = {
         error100: "#E83F5B",
         delete50: "#E73E33",
         delete100: "#B91D2D",
+        primary: {
+          ...violetDark,
+        },
+        secondary: {
+          ...crimsonDark,
+        },
       },
       screens: {
         xs: "420px",
