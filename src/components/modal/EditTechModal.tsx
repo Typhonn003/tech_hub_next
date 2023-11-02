@@ -134,8 +134,8 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
         <div className="flex justify-between">
           <C.LargeButton type="submit">Salvar alterações</C.LargeButton>
           <button
-            data-confirmDelete={confirmDelete}
-            className="data-[confirmDelete=true]:bg-confirmDelete50 hover:data-[confirmDelete=true]:bg-confirmDelete100 mt-auto h-10 rounded-md border-none bg-delete50 px-5 text-xl font-medium text-white transition-colors hover:bg-delete100"
+            data-confirmdelete={confirmDelete}
+            className="mt-auto h-10 rounded-md border-none bg-delete50 px-5 text-xl font-medium text-white transition-colors hover:bg-delete100 data-[confirmdelete=true]:bg-confirmDelete50 hover:data-[confirmdelete=true]:bg-confirmDelete100"
             type="button"
             onClick={() => (confirmDelete ? deleteTech() : handleDeleteClick())}
             aria-label="Exclua a tecnologia selecionada"
