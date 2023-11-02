@@ -8,13 +8,13 @@ interface TechCardProps {
 
 export const TechCard = ({ tech }: TechCardProps) => {
   const { title, status } = tech;
-  const { toggleEditModalStatus } = useModalStateStore();
+  const { toggleEditTechModalStatus } = useModalStateStore();
   const { setTech } = useSelectedTechStore();
 
   return (
     <li className="box-border flex w-full flex-col items-center justify-between rounded-md border border-primary-violet6 bg-gradient-to-t from-primary-violet3 to-primary-violet4 px-6 py-3 transition-colors hover:border-primary-violet7 hover:bg-primary-violet4">
       <h2 className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-semibold xs:max-w-full">
-        Tecnologia: {title}
+        Tech: {title}
       </h2>
       <div className="flex gap-2">
         <span className="text-primary-violet11">Status: {status}</span>
@@ -22,7 +22,7 @@ export const TechCard = ({ tech }: TechCardProps) => {
           aria-label="Botão para editar a tecnologia"
           onClick={() => {
             setTech(tech);
-            toggleEditModalStatus();
+            toggleEditTechModalStatus();
           }}
         >
           <FiEdit3 />

@@ -19,7 +19,8 @@ interface EditTechModalProps {
 }
 
 export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
-  const { toggleEditModalStatus, editModalStatus } = useModalStateStore();
+  const { toggleEditTechModalStatus, editTechModalStatus } =
+    useModalStateStore();
   const { tech } = useSelectedTechStore();
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
 
@@ -35,7 +36,7 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
 
       toast.success("Status alterado com sucesso");
       mutate(updatedUser);
-      toggleEditModalStatus();
+      toggleEditTechModalStatus();
     } catch (error) {
       console.error(error);
     }
@@ -58,7 +59,7 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
 
       toast.success("Tecnologia deletada com sucesso");
       mutate(updatedUser, false);
-      toggleEditModalStatus();
+      toggleEditTechModalStatus();
     } catch (error) {
       console.error(error);
     }
@@ -80,8 +81,8 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && editModalStatus) {
-        toggleEditModalStatus();
+      if (e.key === "Escape" && editTechModalStatus) {
+        toggleEditTechModalStatus();
       }
     };
 
@@ -90,16 +91,16 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [editModalStatus, toggleEditModalStatus]);
+  }, [editTechModalStatus, toggleEditTechModalStatus]);
 
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit(editTech)}>
         <div className="flex items-center justify-between">
-          <h2 className="title2">Detalhes da tecnologia</h2>
+          <h2 className="title2">Detalhes da Tecnologia</h2>
           <C.RoundedButton
             type="button"
-            onClick={toggleEditModalStatus}
+            onClick={toggleEditTechModalStatus}
             aria-label="Botão para fechar o modal"
           >
             <CgClose />

@@ -14,3 +14,8 @@ export interface UserData {
   updated_at: string;
   avataR_url: string;
 }
+
+export interface EditUserData {
+  name: string;
+  contact: string;
+}

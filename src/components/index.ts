@@ -11,6 +11,7 @@ import { Separator } from "./separator/Separator";
 import { EditTechModal } from "./modal/EditTechModal";
 import { LoadingScreen } from "./loading/LoadingScreen";
 import { RoundedButton } from "./button/RoundedButton";
+import { EditProfileModal } from "./modal/EditProfileModal";
 
 export {
   LargeButton,
@@ -26,4 +27,5 @@ export {
   EditTechModal,
   LoadingScreen,
   RoundedButton,
+  EditProfileModal,
 };

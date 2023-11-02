@@ -7,15 +7,47 @@ import { destroyCookie, parseCookies } from "nookies";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useModalStateStore } from "@/store";
+import { VscGear } from "react-icons/vsc";
 import dynamic from "next/dynamic";
+
+const timeMessage = () => {
+  const time = new Date();
+  const hour = time.getHours();
+
+  if (6 <= hour && hour < 12) return "Bom dia";
+  if (12 <= hour && hour < 18) return "Boa tarde";
+  if (18 <= hour && hour < 24) return "Boa noite";
+  else return "Boa madrugada";
+};
+
+const DynamicAddTechModal = dynamic(() =>
+  import("../components/index").then((mod) => mod.AddTechModal),
+);
+
+const DynamicEditTechModal = dynamic(() =>
+  import("../components/index").then((mod) => mod.EditTechModal),
+);
+
+const DynamicTechCard = dynamic(() =>
+  import("../components/index").then((mod) => mod.TechCard),
+);
+
+const DynamicEditProfileModal = dynamic(() =>
+  import("../components/index").then((mod) => mod.EditProfileModal),
+);
 
 const Home: NextPage = () => {
   const router = useRouter();
   const cookies = parseCookies();
   const token = cookies["tech-hub-token"];
   const { data, isLoading, mutate } = useFetch<UserData>("/profile", token);
-  const { addModalStatus, toggleAddModalStatus, editModalStatus } =
-    useModalStateStore();
+  const {
+    addTechModalStatus,
+    toggleAddTechModalStatus,
+    editTechModalStatus,
+    editProfileModalStatus,
+    toggleEditProfileModalStatus,
+  } = useModalStateStore();
 
   const logout = () => {
     destroyCookie(null, "tech-hub-token");
@@ -29,28 +61,6 @@ const Home: NextPage = () => {
     return;
   }
 
-  const timeMessage = () => {
-    const time = new Date();
-    const hour = time.getHours();
-
-    if (6 <= hour && hour < 12) return "Bom dia";
-    if (12 <= hour && hour < 18) return "Boa tarde";
-    if (18 <= hour && hour < 24) return "Boa noite";
-    else return "Boa madrugada";
-  };
-
-  const DynamicAddModal = dynamic(() =>
-    import("../components/index").then((mod) => mod.AddTechModal),
-  );
-
-  const DynamicEditModal = dynamic(() =>
-    import("../components/index").then((mod) => mod.EditTechModal),
-  );
-
-  const DynamicTechCard = dynamic(() =>
-    import("../components/index").then((mod) => mod.TechCard),
-  );
-
   return (
     <div className={`${inter.className} min-h-screen`}>
       <Head>
@@ -59,7 +69,12 @@ const Home: NextPage = () => {
       <header className="flex w-full justify-center border-b-[1px] border-primary-violet6">
         <div className="flex w-[90vw] justify-between py-6 sm:max-w-4xl">
           <C.Title />
-          <C.SmallButton onClick={logout}>Sair</C.SmallButton>
+          <div className="flex gap-4">
+            <button className="text-2xl" onClick={toggleEditProfileModalStatus}>
+              <VscGear />
+            </button>
+            <C.SmallButton onClick={logout}>Sair</C.SmallButton>
+          </div>
         </div>
       </header>
       <main>
@@ -74,7 +89,7 @@ const Home: NextPage = () => {
         <section className="m-auto flex w-[90vw] flex-col gap-6 pt-6 sm:max-w-4xl">
           <div className="flex justify-between">
             <h2 className="text-2xl font-bold">Tecnologias</h2>
-            <C.SmallButton type="button" onClick={toggleAddModalStatus}>
+            <C.SmallButton type="button" onClick={toggleAddTechModalStatus}>
               Adicionar
             </C.SmallButton>
           </div>
@@ -94,9 +109,14 @@ const Home: NextPage = () => {
           )}
         </section>
       </main>
-      {addModalStatus ? <DynamicAddModal mutate={mutate} data={data} /> : null}
-      {editModalStatus ? (
-        <DynamicEditModal mutate={mutate} data={data} />
+      {addTechModalStatus ? (
+        <DynamicAddTechModal mutate={mutate} data={data} />
+      ) : null}
+      {editTechModalStatus ? (
+        <DynamicEditTechModal mutate={mutate} data={data} />
+      ) : null}
+      {editProfileModalStatus ? (
+        <DynamicEditProfileModal mutate={mutate} data={data} />
       ) : null}
     </div>
   );

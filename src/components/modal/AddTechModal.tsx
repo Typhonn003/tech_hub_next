@@ -18,7 +18,7 @@ interface AddTechModalProps {
 }
 
 export const AddTechModal = ({ data, mutate }: AddTechModalProps) => {
-  const { toggleAddModalStatus, addModalStatus } = useModalStateStore();
+  const { toggleAddTechModalStatus, addTechModalStatus } = useModalStateStore();
 
   const addNewTech = async (techData: NewTechData) => {
     try {
@@ -28,7 +28,7 @@ export const AddTechModal = ({ data, mutate }: AddTechModalProps) => {
 
       toast.success("Sua tecnologia foi registrada com sucesso");
       mutate(updatedUser, false);
-      toggleAddModalStatus();
+      toggleAddTechModalStatus();
     } catch (error) {
       console.error(error);
       toast.error("Você já registrou essa tecnologia anteriormente");
@@ -46,8 +46,8 @@ export const AddTechModal = ({ data, mutate }: AddTechModalProps) => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && addModalStatus) {
-        toggleAddModalStatus();
+      if (e.key === "Escape" && addTechModalStatus) {
+        toggleAddTechModalStatus();
       }
     };
 
@@ -56,7 +56,7 @@ export const AddTechModal = ({ data, mutate }: AddTechModalProps) => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [addModalStatus, toggleAddModalStatus]);
+  }, [addTechModalStatus, toggleAddTechModalStatus]);
 
   return (
     <Wrapper>
@@ -65,7 +65,7 @@ export const AddTechModal = ({ data, mutate }: AddTechModalProps) => {
           <h2 className="title2">Cadastrar Tecnologia</h2>
           <C.RoundedButton
             type="button"
-            onClick={toggleAddModalStatus}
+            onClick={toggleAddTechModalStatus}
             aria-label="Botão para fechar o modal"
           >
             <CgClose />
