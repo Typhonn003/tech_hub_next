@@ -4,30 +4,30 @@
 
 @layer base {
   body {
-    @apply bg-black text-white;
+    @apply bg-gradient-to-b from-primary-violet1 to-primary-violet2 text-primary-violet12;
   }
 
   h1 {
-    @apply font-bold text-2xl;
+    @apply text-2xl font-bold;
   }
 
   h2 {
-    @apply font-semibold text-base;
+    @apply text-base font-semibold;
   }
 
   h3 {
-    @apply font-medium text-sm;
+    @apply text-sm font-medium;
   }
 
   ::-webkit-scrollbar {
-    @apply w-2
+    @apply w-3;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-grey200/50 rounded-tr-md rounded-br-md
+    @apply rounded-br-md rounded-tr-md bg-primary-violet3/50;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-grey300 rounded-md
+    @apply rounded-md bg-primary-violet4;
   }
 }

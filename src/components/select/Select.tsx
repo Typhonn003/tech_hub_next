@@ -17,12 +17,12 @@ export const Select = ({
   ...rest
 }: SelectProps) => {
   return (
-    <fieldset className="flex flex-col gap-2 relative">
+    <fieldset className="relative flex flex-col gap-2">
       <label className="text-xs font-normal" htmlFor={id}>
         {label}
       </label>
       <select
-        className="box-border h-10 w-full bg-grey300 text-grey100 text-sm font-normal rounded-md border-2 border-grey300 px-4 outline-none placeholder:text-grey200 focus:border-grey100 disabled:cursor-not-allowed"
+        className="box-border h-10 w-full rounded-md border border-primary-violet6 bg-primary-violet4 px-4 text-sm font-normal text-primary-violet12 placeholder:text-primary-violet12 disabled:cursor-not-allowed"
         id={id}
         {...register}
         {...rest}

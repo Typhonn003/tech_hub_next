@@ -35,25 +35,25 @@ const Register: NextPage = () => {
 
   return (
     <div
-      className={`${inter.className} flex flex-col w-[90vw] m-auto min-h-screen gap-4 items-center justify-center lg:w-full`}
+      className={`${inter.className} m-auto flex min-h-screen w-[90vw] flex-col items-center justify-center gap-4 lg:w-full`}
     >
       <Head>
         <title>Tech Hub - Registro</title>
       </Head>
-      <header className="w-full flex justify-between items-center max-w-xs mt-8 sm:max-w-4xl">
+      <header className="mt-8 flex w-full max-w-xs items-center justify-between sm:max-w-4xl">
         <C.Title />
         <C.LinkMedium href={"/login"}>Voltar ao login</C.LinkMedium>
       </header>
-      <main className="w-full h-full flex justify-center">
+      <main className="flex h-full w-full justify-center">
         <form
-          className="box-border flex flex-col gap-6 w-full max-w-xs bg-grey400 px-4 py-8 rounded-md mb-8 sm:max-w-4xl"
+          className="mb-8 box-border flex w-full max-w-xs flex-col gap-6 rounded-md border border-primary-violet6 bg-gradient-to-bl from-primary-violet2 to-primary-violet3 px-4 py-8 sm:max-w-4xl"
           onSubmit={handleSubmit(registerUser)}
         >
           <h2 className="text-center">Crie sua conta</h2>
-          <span className="text-center font-semibold text-xs text-grey200">
+          <span className="text-center text-xs font-semibold text-secondary-crimson9">
             Rapido e grátis, vamos nessa!
           </span>
-          <div className="flex flex-col gap-6 sm:flex-row transition-all">
+          <div className="flex flex-col gap-6 transition-all sm:flex-row">
             <div className="flex flex-col gap-6 sm:w-2/4">
               <C.Input
                 label="Nome"

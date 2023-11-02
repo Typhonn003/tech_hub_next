@@ -61,7 +61,7 @@ export const AddTechModal = ({ data, mutate }: AddTechModalProps) => {
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit(addNewTech)}>
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <h2 className="title2">Cadastrar Tecnologia</h2>
           <C.RoundedButton
             type="button"
