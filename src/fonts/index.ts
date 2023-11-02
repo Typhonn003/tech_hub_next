@@ -1,7 +1,7 @@
-import { Knewave, Inter } from "next/font/google";
+import { Inter, Ubuntu } from "next/font/google";
 
-export const knewave = Knewave({
-  weight: "400",
+export const ubuntu = Ubuntu({
+  weight: "700",
   subsets: ["latin"],
 });
 
