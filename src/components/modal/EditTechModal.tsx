@@ -1,7 +1,8 @@
 import * as C from "..";
 import { Form } from "./Form";
 import { Wrapper } from "./Wrapper";
-import { CgClose } from "react-icons/cg";
+import { CgClose, CgTrash } from "react-icons/cg";
+import { GiConfirmed } from "react-icons/gi";
 import { UserData } from "@/interfaces/user.interface";
 import { useModalStateStore, useSelectedTechStore } from "@/store";
 import { api } from "@/services/axiosClient";
@@ -94,7 +95,7 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit(editTech)}>
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <h2 className="title2">Detalhes da tecnologia</h2>
           <C.RoundedButton
             type="button"
@@ -127,18 +128,18 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
           <option value="Intermediário">Intermediário</option>
           <option value="Avançado">Avançado</option>
         </C.Select>
-        <span className="text-grey200">
-          Criado em: {formatDate(tech!.created_at)}
-        </span>
+        <span>Criado em: {formatDate(tech!.created_at)}</span>
         <C.Separator />
-        <div className="flex flex-col gap-2 xs:flex-row xs:justify-between">
+        <div className="flex justify-between">
           <C.LargeButton type="submit">Salvar alterações</C.LargeButton>
           <button
-            className="bg-delete50 text-white font-medium text-sm h-10 px-5 rounded-md border-none mt-auto transition-colors hover:bg-delete100"
+            data-confirmDelete={confirmDelete}
+            className="data-[confirmDelete=true]:bg-confirmDelete50 hover:data-[confirmDelete=true]:bg-confirmDelete100 mt-auto h-10 rounded-md border-none bg-delete50 px-5 text-xl font-medium text-white transition-colors hover:bg-delete100"
             type="button"
             onClick={() => (confirmDelete ? deleteTech() : handleDeleteClick())}
+            aria-label="Exclua a tecnologia selecionada"
           >
-            {confirmDelete ? "Confirmar exclusão" : "Excluir"}
+            {confirmDelete ? <GiConfirmed /> : <CgTrash />}
           </button>
         </div>
       </Form>

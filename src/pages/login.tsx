@@ -50,7 +50,7 @@ const Login: NextPage = () => {
       >
         <C.Title />
         <form
-          className="mb-8 box-border flex w-full max-w-xs flex-col gap-6 rounded-md border border-primary-violet6 bg-gradient-to-br from-primary-violet2 to-primary-violet3 px-4 py-8"
+          className="mb-8 box-border flex w-full max-w-xs flex-col gap-6 rounded-md border border-primary-violet6 bg-gradient-to-bl from-primary-violet2 to-primary-violet3 px-4 py-8"
           onSubmit={handleSubmit(login)}
         >
           <h2 className="text-center">Login</h2>

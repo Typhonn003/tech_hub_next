@@ -40,15 +40,15 @@ const Home: NextPage = () => {
   };
 
   const DynamicAddModal = dynamic(() =>
-    import("../components/index").then((mod) => mod.AddTechModal)
+    import("../components/index").then((mod) => mod.AddTechModal),
   );
 
   const DynamicEditModal = dynamic(() =>
-    import("../components/index").then((mod) => mod.EditTechModal)
+    import("../components/index").then((mod) => mod.EditTechModal),
   );
 
   const DynamicTechCard = dynamic(() =>
-    import("../components/index").then((mod) => mod.TechCard)
+    import("../components/index").then((mod) => mod.TechCard),
   );
 
   return (
@@ -56,39 +56,37 @@ const Home: NextPage = () => {
       <Head>
         <title>Tech Hub</title>
       </Head>
-      <header className="w-full flex justify-center border-b-[1px] border-grey300">
-        <div className="w-[90vw] flex justify-between py-6 sm:max-w-4xl">
+      <header className="flex w-full justify-center border-b-[1px] border-primary-violet6">
+        <div className="flex w-[90vw] justify-between py-6 sm:max-w-4xl">
           <C.Title />
           <C.SmallButton onClick={logout}>Sair</C.SmallButton>
         </div>
       </header>
       <main>
-        <section className="w-full flex justify-center border-b-[1px] border-grey300">
-          <div className="w-[90vw] flex flex-col gap-2 py-6 sm:flex-row sm:justify-between sm:items-center sm:max-w-4xl">
-            <h2 className="font-bold text-2xl">
+        <section className="flex w-full justify-center border-b-[1px] border-primary-violet6">
+          <div className="flex w-[90vw] flex-col gap-2 py-6 sm:max-w-4xl sm:flex-row sm:items-center sm:justify-between">
+            <h2 className="text-2xl font-bold">
               {timeMessage()}, {data.name}!
             </h2>
-            <span className="font-bold text-sm text-grey200">
-              {data.course_module}
-            </span>
+            <span className="text-sm font-bold">{data.course_module}</span>
           </div>
         </section>
-        <section className="w-[90vw] flex flex-col gap-6 m-auto pt-6 sm:max-w-4xl">
+        <section className="m-auto flex w-[90vw] flex-col gap-6 pt-6 sm:max-w-4xl">
           <div className="flex justify-between">
-            <h2 className="font-bold text-2xl">Tecnologias</h2>
+            <h2 className="text-2xl font-bold">Tecnologias</h2>
             <C.SmallButton type="button" onClick={toggleAddModalStatus}>
               Adicionar
             </C.SmallButton>
           </div>
           {data.techs.length > 0 ? (
-            <ul className="w-full bg-grey400 grid gap-4 rounded-md p-5 max-h-96 overflow-hidden overflow-y-auto sm:grid-cols-2">
+            <ul className="grid max-h-96 w-full gap-4 overflow-hidden overflow-y-auto rounded-md border border-primary-violet6 bg-gradient-to-bl from-primary-violet2 to-primary-violet3 p-5 sm:grid-cols-2">
               {data.techs.map((tech) => (
                 <DynamicTechCard key={tech.id} tech={tech} />
               ))}
             </ul>
           ) : (
-            <div className="box-border w-full bg-grey400 rounded-md px-4 py-7">
-              <p className="font-medium text-xl text-center sm:text-xl">
+            <div className="box-border w-full rounded-md border border-primary-violet6 bg-gradient-to-bl from-primary-violet2 to-primary-violet3 px-4 py-7">
+              <p className="text-center text-xl font-medium sm:text-xl">
                 Você ainda não tem nenhuma tecnologia cadastrada{" "}
                 <span className="text-pink100">=(</span>
               </p>

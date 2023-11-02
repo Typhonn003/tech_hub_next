@@ -10,19 +10,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        pink50: "#59323F",
-        pink100: "#FF577F",
-        pink200: "#FF427F",
-        grey100: "#F8F9FA",
-        grey200: "#868E96",
-        grey300: "#343B41",
-        grey400: "#212529",
-        grey500: "#121214",
-        toastify: "#343B41",
-        sucess100: "#3FE864",
-        error100: "#E83F5B",
-        delete50: "#E73E33",
-        delete100: "#B91D2D",
+        delete50: "#e5484d",
+        delete100: "#dc3e42",
+        confirmDelete50: "#30a46c",
+        confirmDelete100: "#2b9a66",
         primary: {
           ...violetDark,
         },
