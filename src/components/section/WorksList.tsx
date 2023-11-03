@@ -26,7 +26,7 @@ export const WorksList = ({ works }: WorksListProps) => {
         Adicionar trabalho
       </SmallButton>
       {works.length > 0 ? (
-        <ul className="grid max-h-80 w-full gap-4 overflow-hidden overflow-y-auto rounded-md border border-primary-violet6 bg-gradient-to-bl from-primary-violet2 to-primary-violet3 p-5 sm:grid-cols-3 xl:max-h-96">
+        <ul className="grid max-h-80 w-full grid-cols-1 gap-4 overflow-hidden overflow-y-auto rounded-md border border-primary-violet6 bg-gradient-to-bl from-primary-violet2 to-primary-violet3 p-5 lg:grid-cols-2 xl:max-h-96">
           {works.map((work) => (
             <DynamicWorkCard key={work.id} work={work} />
           ))}
