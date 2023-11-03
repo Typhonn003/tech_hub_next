@@ -1,7 +1,7 @@
 import { LargeButton } from "./button/LargeButton";
-import { Input } from "./input/Input";
+import { Input } from "./inputs/Input";
 import { SpanError } from "./span_error/SpanError";
-import { Select } from "./select/Select";
+import { Select } from "./inputs/Select";
 import { LinkMedium } from "./button/LinkMedium";
 import { Title } from "./title/Title";
 import { SmallButton } from "./button/SmallButton";
@@ -16,6 +16,7 @@ import { TechsList } from "./section/TechsList";
 import { WorksList } from "./section/WorksList";
 import { AddWorkModal } from "./modal/AddWorkModal";
 import { EditWorkModal } from "./modal/EditWorkModal";
+import { TextArea } from "./inputs/TextArea";
 
 export {
   LargeButton,
@@ -36,4 +37,5 @@ export {
   WorksList,
   AddWorkModal,
   EditWorkModal,
+  TextArea,
 };

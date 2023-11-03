@@ -48,7 +48,6 @@ const Home: NextPage = () => {
   const { data, isLoading, mutate } = useFetch<UserData>("/profile", token);
   const {
     addTechModalStatus,
-    toggleAddTechModalStatus,
     editTechModalStatus,
     editWorkModalStatus,
     editProfileModalStatus,

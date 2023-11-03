@@ -82,9 +82,8 @@ export const AddWorkModal = ({ data, mutate }: AddWorkModalProps) => {
             )
           }
         />
-        <C.Input
+        <C.TextArea
           label="Descrição"
-          type="text"
           id="description"
           placeholder="Digite a descrição do trabalho"
           register={register("description")}
