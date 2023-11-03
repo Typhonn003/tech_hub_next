@@ -31,3 +31,9 @@
     @apply rounded-md bg-primary-violet4;
   }
 }
+
+@layer components {
+  .select-button {
+    @apply data-[select=true]:border-b-4 data-[select=true]:border-primary-violet10 data-[select=true]:text-primary-violet11;
+  }
+}

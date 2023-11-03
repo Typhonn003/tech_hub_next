@@ -7,6 +7,10 @@ type modalStateStoreProps = {
   toggleEditTechModalStatus: () => void;
   editProfileModalStatus: boolean;
   toggleEditProfileModalStatus: () => void;
+  addWorkModalStatus: boolean;
+  toggleAddWorkModalStatus: () => void;
+  editWorkModalStatus: boolean;
+  toggleEditWorkModalStatus: () => void;
 };
 
 export const useModalStateStore = create<modalStateStoreProps>()((set) => ({
@@ -19,4 +23,10 @@ export const useModalStateStore = create<modalStateStoreProps>()((set) => ({
   editProfileModalStatus: false,
   toggleEditProfileModalStatus: () =>
     set((prev) => ({ editProfileModalStatus: !prev.editProfileModalStatus })),
+  addWorkModalStatus: false,
+  toggleAddWorkModalStatus: () =>
+    set((prev) => ({ addWorkModalStatus: !prev.addWorkModalStatus })),
+  editWorkModalStatus: false,
+  toggleEditWorkModalStatus: () =>
+    set((prev) => ({ editWorkModalStatus: !prev.editWorkModalStatus })),
 }));
