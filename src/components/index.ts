@@ -15,6 +15,7 @@ import { EditProfileModal } from "./modal/EditProfileModal";
 import { TechsList } from "./section/TechsList";
 import { WorksList } from "./section/WorksList";
 import { AddWorkModal } from "./modal/AddWorkModal";
+import { EditWorkModal } from "./modal/EditWorkModal";
 
 export {
   LargeButton,
@@ -34,4 +35,5 @@ export {
   TechsList,
   WorksList,
   AddWorkModal,
+  EditWorkModal,
 };

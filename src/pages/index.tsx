@@ -33,12 +33,12 @@ const DynamicEditTechModal = dynamic(() =>
   import("../components/index").then((mod) => mod.EditTechModal),
 );
 
-const DynamicTechCard = dynamic(() =>
-  import("../components/index").then((mod) => mod.TechCard),
-);
-
 const DynamicEditProfileModal = dynamic(() =>
   import("../components/index").then((mod) => mod.EditProfileModal),
+);
+
+const DynamicEditWorkModal = dynamic(() =>
+  import("../components/index").then((mod) => mod.EditWorkModal),
 );
 
 const Home: NextPage = () => {
@@ -50,6 +50,7 @@ const Home: NextPage = () => {
     addTechModalStatus,
     toggleAddTechModalStatus,
     editTechModalStatus,
+    editWorkModalStatus,
     editProfileModalStatus,
     toggleEditProfileModalStatus,
     addWorkModalStatus,
@@ -136,6 +137,9 @@ const Home: NextPage = () => {
       ) : null}
       {editTechModalStatus ? (
         <DynamicEditTechModal mutate={mutate} data={data} />
+      ) : null}
+      {editWorkModalStatus ? (
+        <DynamicEditWorkModal mutate={mutate} data={data} />
       ) : null}
       {editProfileModalStatus ? (
         <DynamicEditProfileModal mutate={mutate} data={data} />

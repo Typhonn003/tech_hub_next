@@ -1,5 +1,6 @@
 import { editProfileSchema } from "./editProfile.schema";
 import { editTechSchema } from "./editTech.schema";
+import { editWorkSchema } from "./editWork.schema";
 import { loginSchema } from "./login.schema";
 import { newTechSchema } from "./newTech.schema";
 import { newWorkSchema } from "./newWork.schema";
@@ -12,4 +13,5 @@ export {
   registerSchema,
   editProfileSchema,
   newWorkSchema,
+  editWorkSchema,
 };
