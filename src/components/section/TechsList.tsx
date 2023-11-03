@@ -17,12 +17,16 @@ export const TechsList = ({ techs }: TechListProps) => {
 
   return (
     <>
-      <SmallButton type="button" onClick={toggleAddTechModalStatus} color="pink">
+      <SmallButton
+        type="button"
+        onClick={toggleAddTechModalStatus}
+        color="pink"
+      >
         <AiOutlinePlusCircle />
         Adicionar tecnologia
       </SmallButton>
       {techs.length > 0 ? (
-        <ul className="grid max-h-80 w-full gap-4 overflow-hidden overflow-y-auto rounded-md border border-primary-violet6 bg-gradient-to-bl from-primary-violet2 to-primary-violet3 p-5 sm:grid-cols-2 xl:max-h-96">
+        <ul className="grid max-h-80 w-full gap-4 overflow-hidden overflow-y-auto rounded-md border border-primary-violet6 bg-gradient-to-bl from-primary-violet2 to-primary-violet3 p-5 sm:grid-cols-3 xl:max-h-96">
           {techs.map((tech) => (
             <DynamicTechCard key={tech.id} tech={tech} />
           ))}
