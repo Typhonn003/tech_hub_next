@@ -17,7 +17,7 @@ export const TechsList = ({ techs }: TechListProps) => {
 
   return (
     <>
-      <SmallButton type="button" onClick={toggleAddTechModalStatus}>
+      <SmallButton type="button" onClick={toggleAddTechModalStatus} color="pink">
         <AiOutlinePlusCircle />
         Adicionar tecnologia
       </SmallButton>

@@ -17,7 +17,11 @@ export const WorksList = ({ works }: WorksListProps) => {
 
   return (
     <>
-      <SmallButton type="button" onClick={toggleAddWorkModalStatus}>
+      <SmallButton
+        type="button"
+        onClick={toggleAddWorkModalStatus}
+        color="pink"
+      >
         <AiOutlinePlusCircle />
         Adicionar trabalho
       </SmallButton>
