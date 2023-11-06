@@ -11,16 +11,6 @@ import { VscGear } from "react-icons/vsc";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
-const timeMessage = () => {
-  const time = new Date();
-  const hour = time.getHours();
-
-  if (6 <= hour && hour < 12) return "Bom dia";
-  if (12 <= hour && hour < 18) return "Boa tarde";
-  if (18 <= hour && hour < 24) return "Boa noite";
-  else return "Boa madrugada";
-};
-
 const DynamicAddTechModal = dynamic(() =>
   import("../components/index").then((mod) => mod.AddTechModal),
 );
@@ -84,43 +74,43 @@ const Home: NextPage = () => {
           </div>
         </div>
       </header>
-      <main>
-        <section className="flex w-full justify-center border-b-[1px] border-primary-violet6">
-          <div className="flex w-[90vw] flex-col gap-2 py-6 sm:max-w-4xl sm:flex-row sm:items-center sm:justify-between">
-            <h2 className="text-2xl font-bold">
-              {timeMessage()}, {data.name}!
-            </h2>
-            <span className="text-sm font-bold">{data.course_module}</span>
-          </div>
-        </section>
-        <nav className="border-b-[1px] border-primary-violet6">
-          <div className="m-auto flex w-[90vw] flex-col gap-6 sm:max-w-4xl">
-            <ul className="flex items-center justify-around font-bold">
-              <li>
-                <button
-                  data-select={select}
-                  className="select-button"
-                  onClick={() => isSelect(true)}
-                >
-                  Tecnologias
-                </button>
-              </li>
-              <li>
-                <div className="h-14 w-0 border-[1px] border-primary-violet6" />
-              </li>
-              <li>
-                <button
-                  data-select={!select}
-                  className="select-button"
-                  onClick={() => isSelect(false)}
-                >
-                  Trabalhos
-                </button>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <section className="m-auto flex w-[90vw] flex-col gap-6 pt-6 sm:max-w-4xl">
+      <main className="min-h-[500px] sm:m-auto sm:flex sm:w-[90vw] sm:max-w-4xl">
+        <div className="sm:w-2/5 sm:rounded-bl-2xl sm:border-b sm:border-l sm:border-r sm:border-primary-violet6">
+          <section className="flex w-full justify-center border-b-[1px] border-primary-violet6">
+            <div className="flex w-[90vw] flex-col gap-2 py-6 sm:px-6">
+              <h2 className="text-2xl font-bold">{data.name}</h2>
+              <span className="text-sm">{data.course_module}</span>
+            </div>
+          </section>
+          <nav className="border-b-[1px] border-primary-violet6">
+            <div className="m-auto flex w-[90vw] flex-col gap-6 sm:w-full">
+              <ul className="flex items-center justify-around font-bold sm:justify-evenly">
+                <li>
+                  <button
+                    data-select={select}
+                    className="select-button"
+                    onClick={() => isSelect(true)}
+                  >
+                    Tecnologias
+                  </button>
+                </li>
+                <li>
+                  <div className="h-14 w-0 border-[1px] border-primary-violet6 sm:h-10" />
+                </li>
+                <li>
+                  <button
+                    data-select={!select}
+                    className="select-button"
+                    onClick={() => isSelect(false)}
+                  >
+                    Trabalhos
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <section className="m-auto flex w-[90vw] flex-col gap-6 pt-6 sm:m-0 sm:w-3/5 sm:max-w-4xl sm:rounded-br-2xl sm:border-b sm:border-r sm:border-primary-violet6 sm:p-6 sm:min-h-full">
           {select ? (
             <C.TechsList techs={data.techs} />
           ) : (
