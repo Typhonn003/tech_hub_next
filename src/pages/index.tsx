@@ -62,12 +62,29 @@ const Home: NextPage = () => {
     <div className={`${inter.className} min-h-screen`}>
       <Head>
         <title>Tech Hub</title>
+        <meta
+          name="description"
+          content="Tech Hub é uma plataforma onde alunos podem se registrar para cadastrar tecnologias que estão estudando e trabalhos feitos até o momento."
+        />
+        <meta name="author" content="Diego Lima" />
+        <meta property="og:title" content="Tech Hub" />
+        <meta property="og:site_name" content="Tech Hub" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="pt_BR" />
+        <meta
+          property="og:description"
+          content="Tech Hub é uma plataforma onde alunos podem se registrar para cadastrar tecnologias que estão estudando e trabalhos feitos até o momento."
+        />
       </Head>
       <header className="flex w-full justify-center border-b-[1px] border-primary-violet6">
         <div className="flex w-[90vw] justify-between py-6 sm:max-w-4xl">
           <C.Title />
           <div className="flex gap-4">
-            <button className="text-2xl" onClick={toggleEditProfileModalStatus}>
+            <button
+              className="text-2xl"
+              onClick={toggleEditProfileModalStatus}
+              aria-label="Clique para editar informações do perfil"
+            >
               <VscGear />
             </button>
             <C.SmallButton onClick={logout}>Sair</C.SmallButton>
@@ -79,7 +96,9 @@ const Home: NextPage = () => {
           <section className="flex w-full justify-center border-b-[1px] border-primary-violet6">
             <div className="flex w-[90vw] flex-col gap-2 py-6 sm:px-6">
               <h2 className="text-2xl font-bold">Olá, {data.name}!</h2>
-              <span className="text-sm">Módulo atual: {data.course_module}</span>
+              <span className="text-sm">
+                Módulo atual: {data.course_module}
+              </span>
             </div>
           </section>
           <nav className="border-b-[1px] border-primary-violet6">
@@ -110,7 +129,7 @@ const Home: NextPage = () => {
             </div>
           </nav>
         </div>
-        <section className="m-auto flex w-[90vw] flex-col gap-6 pt-6 sm:m-0 sm:w-3/5 sm:max-w-4xl sm:rounded-br-2xl sm:border-b sm:border-r sm:border-primary-violet6 sm:p-6 sm:min-h-full">
+        <section className="m-auto flex w-[90vw] flex-col gap-6 pt-6 sm:m-0 sm:min-h-full sm:w-3/5 sm:max-w-4xl sm:rounded-br-2xl sm:border-b sm:border-r sm:border-primary-violet6 sm:p-6">
           {select ? (
             <C.TechsList techs={data.techs} />
           ) : (

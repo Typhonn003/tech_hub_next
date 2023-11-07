@@ -35,7 +35,7 @@ export const TechsList = ({ techs }: TechListProps) => {
         <div className="box-border w-full rounded-md border border-primary-violet6 bg-gradient-to-bl from-primary-violet2 to-primary-violet3 px-4 py-7">
           <p className="text-center text-xl font-medium sm:text-xl">
             Você ainda não tem nenhuma tecnologia cadastrada{" "}
-            <span className="text-pink100">=(</span>
+            <span className="text-secondary-crimson10">=(</span>
           </p>
         </div>
       )}
