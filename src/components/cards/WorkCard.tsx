@@ -13,7 +13,7 @@ export const WorkCard = ({ work }: WorkCardProps) => {
 
   return (
     <li className="box-border flex min-h-[280px] flex-col overflow-hidden rounded-md border border-primary-violet6 bg-gradient-to-t from-primary-violet3 to-primary-violet4 transition-colors hover:border-primary-violet7 hover:bg-primary-violet4">
-      <div className="flex flex-grow flex-col gap-3 px-6 py-6">
+      <div className="flex h-5/6 flex-grow flex-col gap-3 px-6 py-6">
         <h2 className="text-xl font-semibold text-primary-violet11 xs:max-w-full">
           {title}
         </h2>

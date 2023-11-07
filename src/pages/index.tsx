@@ -78,8 +78,8 @@ const Home: NextPage = () => {
         <div className="sm:w-2/5 sm:rounded-bl-2xl sm:border-b sm:border-l sm:border-r sm:border-primary-violet6">
           <section className="flex w-full justify-center border-b-[1px] border-primary-violet6">
             <div className="flex w-[90vw] flex-col gap-2 py-6 sm:px-6">
-              <h2 className="text-2xl font-bold">{data.name}</h2>
-              <span className="text-sm">{data.course_module}</span>
+              <h2 className="text-2xl font-bold">Olá, {data.name}!</h2>
+              <span className="text-sm">Módulo atual: {data.course_module}</span>
             </div>
           </section>
           <nav className="border-b-[1px] border-primary-violet6">
