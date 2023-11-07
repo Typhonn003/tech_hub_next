@@ -7,15 +7,44 @@ import { destroyCookie, parseCookies } from "nookies";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useModalStateStore } from "@/store";
+import { VscGear } from "react-icons/vsc";
 import dynamic from "next/dynamic";
+import { useState } from "react";
+
+const DynamicAddTechModal = dynamic(() =>
+  import("../components/index").then((mod) => mod.AddTechModal),
+);
+
+const DynamicAddWorkModal = dynamic(() =>
+  import("../components/index").then((mod) => mod.AddWorkModal),
+);
+
+const DynamicEditTechModal = dynamic(() =>
+  import("../components/index").then((mod) => mod.EditTechModal),
+);
+
+const DynamicEditProfileModal = dynamic(() =>
+  import("../components/index").then((mod) => mod.EditProfileModal),
+);
+
+const DynamicEditWorkModal = dynamic(() =>
+  import("../components/index").then((mod) => mod.EditWorkModal),
+);
 
 const Home: NextPage = () => {
   const router = useRouter();
   const cookies = parseCookies();
   const token = cookies["tech-hub-token"];
   const { data, isLoading, mutate } = useFetch<UserData>("/profile", token);
-  const { addModalStatus, toggleAddModalStatus, editModalStatus } =
-    useModalStateStore();
+  const {
+    addTechModalStatus,
+    editTechModalStatus,
+    editWorkModalStatus,
+    editProfileModalStatus,
+    toggleEditProfileModalStatus,
+    addWorkModalStatus,
+  } = useModalStateStore();
+  const [select, isSelect] = useState<boolean>(true);
 
   const logout = () => {
     destroyCookie(null, "tech-hub-token");
@@ -29,76 +58,80 @@ const Home: NextPage = () => {
     return;
   }
 
-  const timeMessage = () => {
-    const time = new Date();
-    const hour = time.getHours();
-
-    if (6 <= hour && hour < 12) return "Bom dia";
-    if (12 <= hour && hour < 18) return "Boa tarde";
-    if (18 <= hour && hour < 24) return "Boa noite";
-    else return "Boa madrugada";
-  };
-
-  const DynamicAddModal = dynamic(() =>
-    import("../components/index").then((mod) => mod.AddTechModal)
-  );
-
-  const DynamicEditModal = dynamic(() =>
-    import("../components/index").then((mod) => mod.EditTechModal)
-  );
-
-  const DynamicTechCard = dynamic(() =>
-    import("../components/index").then((mod) => mod.TechCard)
-  );
-
   return (
     <div className={`${inter.className} min-h-screen`}>
       <Head>
         <title>Tech Hub</title>
       </Head>
-      <header className="w-full flex justify-center border-b-[1px] border-grey300">
-        <div className="w-[90vw] flex justify-between py-6 sm:max-w-4xl">
+      <header className="flex w-full justify-center border-b-[1px] border-primary-violet6">
+        <div className="flex w-[90vw] justify-between py-6 sm:max-w-4xl">
           <C.Title />
-          <C.SmallButton onClick={logout}>Sair</C.SmallButton>
+          <div className="flex gap-4">
+            <button className="text-2xl" onClick={toggleEditProfileModalStatus}>
+              <VscGear />
+            </button>
+            <C.SmallButton onClick={logout}>Sair</C.SmallButton>
+          </div>
         </div>
       </header>
-      <main>
-        <section className="w-full flex justify-center border-b-[1px] border-grey300">
-          <div className="w-[90vw] flex flex-col gap-2 py-6 sm:flex-row sm:justify-between sm:items-center sm:max-w-4xl">
-            <h2 className="font-bold text-2xl">
-              {timeMessage()}, {data.name}!
-            </h2>
-            <span className="font-bold text-sm text-grey200">
-              {data.course_module}
-            </span>
-          </div>
-        </section>
-        <section className="w-[90vw] flex flex-col gap-6 m-auto pt-6 sm:max-w-4xl">
-          <div className="flex justify-between">
-            <h2 className="font-bold text-2xl">Tecnologias</h2>
-            <C.SmallButton type="button" onClick={toggleAddModalStatus}>
-              Adicionar
-            </C.SmallButton>
-          </div>
-          {data.techs.length > 0 ? (
-            <ul className="w-full bg-grey400 grid gap-4 rounded-md p-5 max-h-96 overflow-hidden overflow-y-auto sm:grid-cols-2">
-              {data.techs.map((tech) => (
-                <DynamicTechCard key={tech.id} tech={tech} />
-              ))}
-            </ul>
-          ) : (
-            <div className="box-border w-full bg-grey400 rounded-md px-4 py-7">
-              <p className="font-medium text-xl text-center sm:text-xl">
-                Você ainda não tem nenhuma tecnologia cadastrada{" "}
-                <span className="text-pink100">=(</span>
-              </p>
+      <main className="min-h-[500px] sm:m-auto sm:flex sm:w-[90vw] sm:max-w-4xl">
+        <div className="sm:w-2/5 sm:rounded-bl-2xl sm:border-b sm:border-l sm:border-r sm:border-primary-violet6">
+          <section className="flex w-full justify-center border-b-[1px] border-primary-violet6">
+            <div className="flex w-[90vw] flex-col gap-2 py-6 sm:px-6">
+              <h2 className="text-2xl font-bold">Olá, {data.name}!</h2>
+              <span className="text-sm">Módulo atual: {data.course_module}</span>
             </div>
+          </section>
+          <nav className="border-b-[1px] border-primary-violet6">
+            <div className="m-auto flex w-[90vw] flex-col gap-6 sm:w-full">
+              <ul className="flex items-center justify-around font-bold sm:justify-evenly">
+                <li>
+                  <button
+                    data-select={select}
+                    className="select-button"
+                    onClick={() => isSelect(true)}
+                  >
+                    Tecnologias
+                  </button>
+                </li>
+                <li>
+                  <div className="h-14 w-0 border-[1px] border-primary-violet6 sm:h-10" />
+                </li>
+                <li>
+                  <button
+                    data-select={!select}
+                    className="select-button"
+                    onClick={() => isSelect(false)}
+                  >
+                    Trabalhos
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <section className="m-auto flex w-[90vw] flex-col gap-6 pt-6 sm:m-0 sm:w-3/5 sm:max-w-4xl sm:rounded-br-2xl sm:border-b sm:border-r sm:border-primary-violet6 sm:p-6 sm:min-h-full">
+          {select ? (
+            <C.TechsList techs={data.techs} />
+          ) : (
+            <C.WorksList works={data.works} />
           )}
         </section>
       </main>
-      {addModalStatus ? <DynamicAddModal mutate={mutate} data={data} /> : null}
-      {editModalStatus ? (
-        <DynamicEditModal mutate={mutate} data={data} />
+      {addTechModalStatus ? (
+        <DynamicAddTechModal mutate={mutate} data={data} />
+      ) : null}
+      {addWorkModalStatus ? (
+        <DynamicAddWorkModal mutate={mutate} data={data} />
+      ) : null}
+      {editTechModalStatus ? (
+        <DynamicEditTechModal mutate={mutate} data={data} />
+      ) : null}
+      {editWorkModalStatus ? (
+        <DynamicEditWorkModal mutate={mutate} data={data} />
+      ) : null}
+      {editProfileModalStatus ? (
+        <DynamicEditProfileModal mutate={mutate} data={data} />
       ) : null}
     </div>
   );

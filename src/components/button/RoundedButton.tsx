@@ -7,7 +7,7 @@ interface RoundedButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export const RoundedButton = ({ children, ...rest }: RoundedButtonProps) => {
   return (
     <button
-      className="h-8 w-8 rounded-full flex items-center justify-center bg-grey400 hover:bg-grey300"
+      className="flex h-8 w-8 items-center justify-center rounded-full border border-primary-violet6 bg-primary-violet3 hover:bg-primary-violet4"
       {...rest}
     >
       {children}

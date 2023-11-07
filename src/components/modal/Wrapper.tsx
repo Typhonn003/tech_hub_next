@@ -6,8 +6,8 @@ interface WrapperProps {
 
 export const Wrapper = ({ children }: WrapperProps) => {
   return (
-    <div className="bg-black/20 backdrop-blur-sm fixed top-0 left-0 w-full min-h-screen flex justify-center items-center">
-      <div className="w-[90vw] sm:max-w-4xl flex justify-center">
+    <div className="fixed left-0 top-0 flex min-h-screen w-full items-center justify-center bg-black/20 backdrop-blur-sm">
+      <div className="flex w-[90vw] justify-center sm:max-w-4xl">
         {children}
       </div>
     </div>

@@ -4,39 +4,43 @@ import { Wrapper } from "./Wrapper";
 import { CgClose, CgTrash } from "react-icons/cg";
 import { GiConfirmed } from "react-icons/gi";
 import { UserData } from "@/interfaces/user.interface";
-import { useModalStateStore, useSelectedTechStore } from "@/store";
+import { useModalStateStore, useSelectedWorkStore } from "@/store";
 import { api } from "@/services/axiosClient";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { EditTechData } from "@/interfaces/tech.interface";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { editTechSchema } from "@/schemas";
+import { EditWorkData } from "@/interfaces/work.interface";
+import { editWorkSchema } from "@/schemas";
 
-interface EditTechModalProps {
+interface EditWorkModalProps {
   data: UserData;
   mutate: any;
 }
 
-export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
-  const { toggleEditTechModalStatus, editTechModalStatus } =
+export const EditWorkModal = ({ data, mutate }: EditWorkModalProps) => {
+  const { toggleEditWorkModalStatus, editWorkModalStatus } =
     useModalStateStore();
-  const { tech } = useSelectedTechStore();
+  const { work } = useSelectedWorkStore();
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
 
-  const editTech = async (techData: EditTechData) => {
+  const editWork = async (workData: EditWorkData) => {
     try {
-      const response = await api.put(`users/techs/${tech!.id}`, techData);
-      const updatedTechs = data.techs.map((item) => {
-        return item.id === tech!.id
-          ? { ...item, status: response.data.status }
+      const response = await api.put(`users/works/${work!.id}`, workData);
+      const updatedWorks = data.works.map((item) => {
+        return item.id === work!.id
+          ? {
+              ...item,
+              title: response.data.title,
+              description: response.data.description,
+            }
           : item;
       });
-      const updatedUser = { ...data, techs: updatedTechs };
+      const updatedUser = { ...data, works: updatedWorks };
 
-      toast.success("Status alterado com sucesso");
+      toast.success("Trabalho atualizado com sucesso");
       mutate(updatedUser);
-      toggleEditTechModalStatus();
+      toggleEditWorkModalStatus();
     } catch (error) {
       console.error(error);
     }
@@ -46,20 +50,20 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<EditTechData>({
-    resolver: zodResolver(editTechSchema),
+  } = useForm<EditWorkData>({
+    resolver: zodResolver(editWorkSchema),
     mode: "onChange",
   });
 
-  const deleteTech = async () => {
+  const deleteWork = async () => {
     try {
-      await api.delete(`users/techs/${tech!.id}`);
-      const updatedTechs = data.techs.filter((item) => item.id !== tech!.id);
-      const updatedUser = { ...data, techs: updatedTechs };
+      await api.delete(`users/works/${work!.id}`);
+      const updatedWorks = data.works.filter((item) => item.id !== work!.id);
+      const updatedUser = { ...data, works: updatedWorks };
 
-      toast.success("Tecnologia deletada com sucesso");
+      toast.success("Trabalho deletado com sucesso");
       mutate(updatedUser, false);
-      toggleEditTechModalStatus();
+      toggleEditWorkModalStatus();
     } catch (error) {
       console.error(error);
     }
@@ -81,8 +85,8 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && editTechModalStatus) {
-        toggleEditTechModalStatus();
+      if (e.key === "Escape" && editWorkModalStatus) {
+        toggleEditWorkModalStatus();
       }
     };
 
@@ -91,16 +95,16 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [editTechModalStatus, toggleEditTechModalStatus]);
+  }, [editWorkModalStatus, toggleEditWorkModalStatus]);
 
   return (
     <Wrapper>
-      <Form onSubmit={handleSubmit(editTech)}>
+      <Form onSubmit={handleSubmit(editWork)}>
         <div className="flex items-center justify-between">
-          <h2 className="title2">Detalhes da Tecnologia</h2>
+          <h2 className="title2">Detalhes do trabalho</h2>
           <C.RoundedButton
             type="button"
-            onClick={toggleEditTechModalStatus}
+            onClick={toggleEditWorkModalStatus}
             aria-label="Botão para fechar o modal"
           >
             <CgClose />
@@ -110,26 +114,29 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
           label="Nome"
           type="text"
           id="name"
-          placeholder="Digite o nome da tecnologia"
-          defaultValue={tech!.title}
-          disabled
-        />
-        <C.Select
-          label="Modificar status"
-          id="status"
-          defaultValue={tech!.status}
-          register={register("status")}
+          defaultValue={work!.title}
+          placeholder="Digite o nome do trabalho"
+          register={register("title")}
           error={
-            errors.status?.message && (
-              <C.SpanError>{errors.status.message}</C.SpanError>
+            errors.title?.message && (
+              <C.SpanError>{errors.title.message}</C.SpanError>
             )
           }
-        >
-          <option value="Iniciante">Iniciante</option>
-          <option value="Intermediário">Intermediário</option>
-          <option value="Avançado">Avançado</option>
-        </C.Select>
-        <span>Criado em: {formatDate(tech!.created_at)}</span>
+        />
+        <C.Input
+          label="Descrição"
+          type="text"
+          id="description"
+          defaultValue={work!.description}
+          placeholder="Digite a descrição do trabalho"
+          register={register("description")}
+          error={
+            errors.description?.message && (
+              <C.SpanError>{errors.description.message}</C.SpanError>
+            )
+          }
+        />
+        <span>Criado em: {formatDate(work!.created_at)}</span>
         <C.Separator />
         <div className="flex justify-between">
           <C.LargeButton type="submit">Salvar alterações</C.LargeButton>
@@ -137,7 +144,7 @@ export const EditTechModal = ({ data, mutate }: EditTechModalProps) => {
             data-confirmdelete={confirmDelete}
             className="mt-auto h-10 rounded-md border-none bg-delete50 px-5 text-xl font-medium text-white transition-colors hover:bg-delete100 data-[confirmdelete=true]:bg-confirmDelete50 hover:data-[confirmdelete=true]:bg-confirmDelete100"
             type="button"
-            onClick={() => (confirmDelete ? deleteTech() : handleDeleteClick())}
+            onClick={() => (confirmDelete ? deleteWork() : handleDeleteClick())}
             aria-label="Exclua a tecnologia selecionada"
           >
             {confirmDelete ? <GiConfirmed /> : <CgTrash />}

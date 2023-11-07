@@ -1,17 +1,32 @@
 import { create } from "zustand";
 
 type modalStateStoreProps = {
-  addModalStatus: boolean;
-  toggleAddModalStatus: () => void;
-  editModalStatus: boolean;
-  toggleEditModalStatus: () => void;
+  addTechModalStatus: boolean;
+  toggleAddTechModalStatus: () => void;
+  editTechModalStatus: boolean;
+  toggleEditTechModalStatus: () => void;
+  editProfileModalStatus: boolean;
+  toggleEditProfileModalStatus: () => void;
+  addWorkModalStatus: boolean;
+  toggleAddWorkModalStatus: () => void;
+  editWorkModalStatus: boolean;
+  toggleEditWorkModalStatus: () => void;
 };
 
 export const useModalStateStore = create<modalStateStoreProps>()((set) => ({
-  addModalStatus: false,
-  toggleAddModalStatus: () =>
-    set((prev) => ({ addModalStatus: !prev.addModalStatus })),
-  editModalStatus: false,
-  toggleEditModalStatus: () =>
-    set((prev) => ({ editModalStatus: !prev.editModalStatus })),
+  addTechModalStatus: false,
+  toggleAddTechModalStatus: () =>
+    set((prev) => ({ addTechModalStatus: !prev.addTechModalStatus })),
+  editTechModalStatus: false,
+  toggleEditTechModalStatus: () =>
+    set((prev) => ({ editTechModalStatus: !prev.editTechModalStatus })),
+  editProfileModalStatus: false,
+  toggleEditProfileModalStatus: () =>
+    set((prev) => ({ editProfileModalStatus: !prev.editProfileModalStatus })),
+  addWorkModalStatus: false,
+  toggleAddWorkModalStatus: () =>
+    set((prev) => ({ addWorkModalStatus: !prev.addWorkModalStatus })),
+  editWorkModalStatus: false,
+  toggleEditWorkModalStatus: () =>
+    set((prev) => ({ editWorkModalStatus: !prev.editWorkModalStatus })),
 }));
