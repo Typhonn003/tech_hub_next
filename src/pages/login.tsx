@@ -44,6 +44,19 @@ const Login: NextPage = () => {
     <>
       <Head>
         <title>Tech Hub - Login</title>
+        <meta
+          name="description"
+          content="Tech Hub é uma plataforma onde alunos podem se registrar para cadastrar tecnologias que estão estudando e trabalhos feitos até o momento."
+        />
+        <meta name="author" content="Diego Lima" />
+        <meta property="og:title" content="Tech Hub" />
+        <meta property="og:site_name" content="Tech Hub" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="pt_BR" />
+        <meta
+          property="og:description"
+          content="Tech Hub é uma plataforma onde alunos podem se registrar para cadastrar tecnologias que estão estudando e trabalhos feitos até o momento."
+        />
       </Head>
       <main
         className={`${inter.className} m-auto flex min-h-screen w-[90vw] flex-col items-center justify-center gap-4 lg:w-full`}
